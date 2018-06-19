@@ -14,19 +14,19 @@
  * limitations under the License.
  * </p>
  */
-package io.flexibledata.datasubscribe.api;
+package io.flexibledata.datasubscribe.examples.canal.subscribe;
 
-import com.google.common.eventbus.Subscribe;
-
+import io.flexibledata.datasubscribe.api.EventListener;
 import io.flexibledata.datasubscribe.canal.event.Event;
 
 /**
- * 事件监听器
- * 
  * @author tan.jie
  *
  */
-public interface EventListener {
-	@Subscribe
-	public void listen(Event event);
+public class TestEventLisenter implements EventListener {
+
+	@Override
+	public void listen(Event event) {
+		System.out.println(event.toString());
+	}
 }

@@ -32,7 +32,7 @@ import lombok.Getter;
  */
 @Getter
 @AllArgsConstructor
-class CanalConfig {
+public class CanalConfig {
 	private Boolean cluster;
 	private String destination;
 	private String connectUrl;

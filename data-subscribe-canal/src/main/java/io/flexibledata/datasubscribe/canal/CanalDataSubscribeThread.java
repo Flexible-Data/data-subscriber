@@ -28,6 +28,7 @@ import io.flexibledata.datasubscribe.api.EventListener;
 import io.flexibledata.datasubscribe.canal.event.Event;
 import io.flexibledata.datasubscribe.canal.handler.CanalEventHandler;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Canal数据订阅线程
@@ -35,6 +36,7 @@ import lombok.AllArgsConstructor;
  * @author tan.jie
  *
  */
+@Slf4j
 @AllArgsConstructor
 public class CanalDataSubscribeThread extends Thread {
 	private static final int SLEEP_TIME = 500;
@@ -71,6 +73,7 @@ public class CanalDataSubscribeThread extends Thread {
 				List<Event> events = eventHandler.onEvent(message);
 				for (Event each : events) {
 					eventBus.post(each);
+					log.debug(each.toString());
 				}
 			}
 			connector.ack(batchId);

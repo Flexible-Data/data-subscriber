@@ -98,21 +98,30 @@ public class CanalEventHandler {
 	}
 
 	private Event handleInsertData(RowData rowData, String schemaName, String tableName, long executeTime) {
-		List<Column> columns = convertEventColumns(rowData);
+		List<Column> columns = convertInsertEventColumns(rowData);
 		Event result = new InsertEvent(schemaName, tableName, executeTime, columns);
 		return result;
 	}
 
 	private Event handleDeleteData(RowData rowData, String schemaName, String tableName, long executeTime) {
-		List<Column> columns = convertEventColumns(rowData);
+		List<Column> columns = convertDeleteEventColumns(rowData);
 		Event result = new DeleteEvent(schemaName, tableName, executeTime, columns);
 		return result;
 	}
 
-	private List<Column> convertEventColumns(RowData rowData) {
+	private List<Column> convertInsertEventColumns(RowData rowData) {
 		ArrayList<Column> result = new ArrayList<Column>();
 
 		for (CanalEntry.Column column : rowData.getAfterColumnsList()) {
+			result.add(convertEventColumn(column));
+		}
+		return result;
+	}
+
+	private List<Column> convertDeleteEventColumns(RowData rowData) {
+		ArrayList<Column> result = new ArrayList<Column>();
+
+		for (CanalEntry.Column column : rowData.getBeforeColumnsList()) {
 			result.add(convertEventColumn(column));
 		}
 		return result;

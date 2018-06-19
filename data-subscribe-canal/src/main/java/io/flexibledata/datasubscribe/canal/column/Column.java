@@ -20,6 +20,7 @@ import java.io.Serializable;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 /**
  * 变更数据的列
@@ -28,6 +29,7 @@ import lombok.Setter;
  *
  */
 @Getter
+@ToString
 public class Column implements Serializable {
 	private static final long serialVersionUID = 2893771144440353117L;
 

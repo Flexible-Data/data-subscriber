@@ -31,7 +31,8 @@ public class CanalDataSubscribeService {
 	public void subscribe(CanalClient canalClient, EventListener eventListener) {
 		CanalDataSubscribeThread canalDataSubscribeThread = new CanalDataSubscribeThread(canalClient, eventListener);
 		canalDataSubscribeThread.setName("CanalDataSubscribeThread");
-		canalDataSubscribeThread.start();
 		log.info("Started CanalDataSubscribeThread.");
+		canalDataSubscribeThread.start();
+		
 	}
 }
