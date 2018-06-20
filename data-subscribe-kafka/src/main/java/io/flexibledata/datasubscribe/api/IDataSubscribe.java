@@ -18,6 +18,8 @@ package io.flexibledata.datasubscribe.api;
 
 import java.util.Map;
 
+import io.flexibledata.datasubscribe.event.Event;
+
 /**
  * 数据订阅接口
  * 
@@ -25,5 +27,5 @@ import java.util.Map;
  *
  */
 public interface IDataSubscribe {
-	Map<String, Object> subscribeData(SubscribeContext context);
+	Map<String, Object> subscribeData(Event event);
 }

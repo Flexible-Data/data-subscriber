@@ -14,36 +14,47 @@
  * limitations under the License.
  * </p>
  */
-package io.flexibledata.datasubscribe.kafka;
+package io.flexibledata.datasubscribe.event;
 
-import java.util.List;
-import java.util.Properties;
-
-import org.apache.kafka.clients.consumer.KafkaConsumer;
-
-import com.google.common.base.Preconditions;
+import java.io.Serializable;
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
 
 /**
- * Kafka连接客户端
+ * 数据订阅上下文
  * 
  * @author tan.jie
  *
  */
+@Data
 @AllArgsConstructor
-public class KafkaClient {
-	private Properties props;
-	private List<String> topics;
+public class Event implements Serializable {
+
+	private static final long serialVersionUID = -5506725507250224052L;
 
 	/**
-	 * 创建Kafka消费者
-	 * 
-	 * @return
+	 * 库名
 	 */
-	public KafkaConsumer<String, String> getKafkaConsumer() {
-		Preconditions.checkNotNull(props, "Kafka connection properties can't null!");
-		Preconditions.checkArgument(topics != null && !topics.isEmpty(), "Kafka topic is not empty!");
-		return new KafkaConsumer<>(props);
-	}
+	private String schemaName;
+
+	/**
+	 * 表名
+	 */
+	private String tableName;
+
+	/**
+	 * 取值范围：insert、update、delete
+	 */
+	private EventType eventType;
+
+	/**
+	 * 主键
+	 */
+	private Long id;
+
+	/**
+	 * 事件发生时间
+	 */
+	private String timestamp;
 }

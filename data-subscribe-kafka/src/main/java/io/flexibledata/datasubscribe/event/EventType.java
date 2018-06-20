@@ -14,7 +14,7 @@
  * limitations under the License.
  * </p>
  */
-package io.flexibledata.datasubscribe.constant;
+package io.flexibledata.datasubscribe.event;
 
 import java.util.Arrays;
 

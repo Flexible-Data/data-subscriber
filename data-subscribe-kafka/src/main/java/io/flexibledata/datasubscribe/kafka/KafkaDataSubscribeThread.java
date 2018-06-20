@@ -16,10 +16,49 @@
  */
 package io.flexibledata.datasubscribe.kafka;
 
+import java.io.IOException;
+
+import org.apache.kafka.clients.consumer.ConsumerRecord;
+import org.apache.kafka.clients.consumer.ConsumerRecords;
+import org.apache.kafka.clients.consumer.KafkaConsumer;
+
+import io.flexibledata.datasubscribe.api.IDataSubscribe;
+import io.flexibledata.datasubscribe.event.Event;
+import io.flexibledata.datasubscribe.util.SerializeUtil;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
 /**
+ * Kafka数据订阅线程
+ * 
  * @author tan.jie
  *
  */
-public class KafkaDataSubscribeThread {
+@Slf4j
+@AllArgsConstructor
+public class KafkaDataSubscribeThread extends Thread {
+	private KafkaConsumer<String, String> kafkaConsumer;
+	private IDataSubscribe dataSubscribe;
+
+	@Override
+	public void run() {
+		process();
+	}
+
+	public void process() {
+		while (true) {
+			ConsumerRecords<String, String> records = kafkaConsumer.poll(100);
+			for (ConsumerRecord<String, String> record : records) {
+				try {
+					Event event = SerializeUtil.deserializeFromStr(record.value());
+					dataSubscribe.subscribeData(event);
+				} catch (ClassNotFoundException e) {
+					log.error("Can't deserialize {} to Event object.", record.value(), e);
+				} catch (IOException e) {
+					log.error("IOException when deserializing {} to Event object ", e);
+				}
+			}
+		}
+	}
 
 }

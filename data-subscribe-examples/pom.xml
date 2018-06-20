@@ -9,5 +9,6 @@
   <packaging>pom</packaging>
   <modules>
   	<module>data-subscribe-examples-canal</module>
+  	<module>data-subscribe-examples-kafka</module>
   </modules>
 </project>

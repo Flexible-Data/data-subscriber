@@ -14,24 +14,23 @@
  * limitations under the License.
  * </p>
  */
-package io.flexibledata.datasubscribe.api;
+package io.flexibledata.datasubscribe.examples.kafka.subscribe;
 
-import io.flexibledata.datasubscribe.constant.EventType;
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import java.util.Map;
+
+import io.flexibledata.datasubscribe.api.IDataSubscribe;
+import io.flexibledata.datasubscribe.event.Event;
 
 /**
- * 数据订阅上下文
- * 
  * @author tan.jie
  *
  */
-@Data
-@AllArgsConstructor
-public class SubscribeContext {
-	private String schemaName;
-	private String tableName;
-	private EventType eventType;// 如insert、update、delete
-	private Long id;// 主文档id
-	private String updateTime;
+public class TestDataSubscribe implements IDataSubscribe {
+
+	@Override
+	public Map<String, Object> subscribeData(Event event) {
+		System.out.println(event);
+		return null;
+	}
+
 }
