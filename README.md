@@ -1,2 +1,2 @@
 # data-subscriber
-用于订阅Canal数据
+基于canal Event订阅数据或kafka Event订阅数据
